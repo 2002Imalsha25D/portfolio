@@ -640,7 +640,9 @@
 
                     <img
                         src="my_channel.png"
-                        alt="channel work"
+                        alt="Prime Motivation YouTube channel"
+                        loading="lazy"
+                        onerror="tryNextImage(this, ['portfolio_assets/my_channel.png', 'My_Channel.png', 'portfolio_assets/My_Channel.png']);"
                     >
 
                 </div>
@@ -775,6 +777,7 @@
                     src="invitation_1.PNG"
                     alt="Kohomba Kankariya online invitation"
                     loading="lazy"
+                    onerror="tryNextImage(this, ['invitation_1.png', 'portfolio_assets/invitation_1.PNG', 'portfolio_assets/invitation_1.png']);"
                 >
 
                 <div class="cap">
@@ -1167,6 +1170,25 @@
     </footer>
 
 </div>
+
+<script>
+    // Tries alternate file locations/capitalisation if an image path is incorrect.
+    function tryNextImage(img, paths) {
+        const nextPath = paths.shift();
+
+        if (!nextPath) {
+            img.onerror = null;
+            console.error("Image not found. Check the filename and folder:", img.alt);
+            return;
+        }
+
+        img.onerror = function () {
+            tryNextImage(img, paths);
+        };
+
+        img.src = nextPath;
+    }
+</script>
 
 </body>
 </html>
